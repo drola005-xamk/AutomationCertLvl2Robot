@@ -7,6 +7,7 @@ from RPA.PDF import PDF
 from RPA.Archive import Archive
 
 import shutil
+import time
 
 @task
 def order_robots_from_RobotSpareBin():
@@ -132,9 +133,11 @@ def click_order_another_robot_button():
     page.click("#order-another")
 
 def archive_receipts():
-    """Zips the PDF receipts."""
+    """Zips the PDF receipts with unique ZIP file name."""
+    time_of_archive = int(time.time())
+
     lib = Archive()
-    lib.archive_folder_with_zip('output/tmp/receipts', 'output/receipts.zip')
+    lib.archive_folder_with_zip('output/tmp/receipts', f'output/receipts_{time_of_archive}.zip')
 
 def delete_temp():
     """Deletes the output/tmp folder and all its contents."""
